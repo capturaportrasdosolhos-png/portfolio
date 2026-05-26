@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manoela Leão — Cineasta / Fotógrafa / Diretora de Arte</title>
+
+  <!-- Bootstrap 5 CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ============================================================
+       VARIÁVEIS GLOBAIS — Paleta e tipografia
+    ============================================================ */
+    :root {
+      --preto:        #0a0908;
+      --carvao:       #141210;
+      --cimento:      #2e2b28;
+      --cimento-claro:#4a4540;
+      --cinza-medio:  #7a736b;
+      --cinza-claro:  #b0a89e;
+      --creme:        #d6cfc5;
+      --branco-sujo:  #ede8e1;
+      --accent:       #8c7b6b;    /* cinza cimento queimado */
+      --accent-vivo:  #c4a882;    /* dourado envelhecido */
+
+      --fonte-titulo: 'UnifrakturMaguntia', cursive;
+      --fonte-serif:  'Cormorant Garamond', serif;
+      --fonte-corpo:  'DM Sans', sans-serif;
+    }
+
+    /* ============================================================
+       RESET E BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--preto);
+      color: var(--creme);
+      font-family: var(--fonte-corpo);
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.7;
+      overflow-x: hidden;
+      /* Textura grain via SVG inline */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--branco-sujo);
+    }
+
+    /* ============================================================
+       SCROLLBAR PERSONALIZADA
+    ============================================================ */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--carvao); }
+    ::-webkit-scrollbar-thumb { background: var(--cimento-claro); border-radius: 2px; }
+
+    /* ============================================================
+       ANIMAÇÕES DE ENTRADA
+    ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes scanline {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+
+    .anim-fade-up {
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.30s; }
+    .delay-3 { animation-delay: 0.45s; }
+    .delay-4 { animation-delay: 0.60s; }
+    .delay-5 { animation-delay: 0.75s; }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .navbar-custom {
+      background-color: rgba(10, 9, 8, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--cimento);
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand-custom {
+      font-family: var(--fonte-titulo);
+      font-size: 1.6rem;
+      color: var(--branco-sujo) !important;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .navbar-brand-custom:hover { color: var(--accent-vivo) !important; }
+
+    .nav-link-custom {
+      font-family: var(--fonte-corpo);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cinza-claro) !important;
+      padding: 0.4rem 1rem !important;
+      transition: color 0.3s;
+    }
+    .nav-link-custom:hover { color: var(--branco-sujo) !important; }
+
+    .navbar-toggler {
+      border: 1px solid var(--cimento-claro);
+    }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23b0a89e' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 8rem;
+      padding-top: 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Faixa cinescópio superior e inferior */
+    #hero::before,
+    #hero::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 8vh;
+      background: var(--preto);
+      z-index: 2;
+    }
+    #hero::before { top: 0; }
+    #hero::after  { bottom: 0; }
+
+    /* Linha scanline animada */
+    .scanline {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .scanline::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to bottom,
+        transparent,
+        rgba(196, 168, 130, 0.06),
+        transparent);
+      animation: scanline 8s linear infinite;
+    }
+
+    /* Grade película de fundo */
+    .hero-filmstrip {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent calc(100% / 7 - 1px),
+          rgba(255,255,255,0.018) calc(100% / 7 - 1px),
+          rgba(255,255,255,0.018) calc(100% / 7)
+        );
+      z-index: 1;
+    }
+
+    /* Imagem placeholder hero */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        #1a1714 0%,
+        #0f0e0c 40%,
+        #1c1a17 70%,
+        #0a0908 100%
+      );
+      z-index: 0;
+    }
+    /* Círculo de luz dramática */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 70%;
+      height: 80%;
+      background: radial-gradient(ellipse,
+        rgba(140, 123, 107, 0.12) 0%,
+        transparent 65%);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 4;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--fonte-corpo);
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: var(--fonte-titulo);
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      line-height: 0.92;
+      color: var(--branco-sujo);
+      margin-bottom: 1.6rem;
+      /* Sombra cinematográfica */
+      text-shadow:
+        2px 2px 0px rgba(0,0,0,0.8),
+        0 0 60px rgba(196,168,130,0.08);
+    }
+
+    .hero-subtitle {
+      font-family: var(--fonte-serif);
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--cinza-claro);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Número de fotograma */
+    .hero-frame-num {
+      position: absolute;
+      right: 2rem;
+      bottom: 12vh;
+      font-family: var(--fonte-corpo);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--cimento-claro);
+      z-index: 4;
+      writing-mode: vertical-rl;
+    }
+
+    /* ============================================================
+       BOTÕES
+    ============================================================ */
+    .btn-custom-outline {
+      font-family: var(--fonte-corpo);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--creme);
+      border: 1px solid var(--cimento-claro);
+      background: transparent;
+      padding: 0.75rem 2rem;
+      border-radius: 0;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-custom-outline:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--preto);
+    }
+
+    .btn-custom-solid {
+      font-family: var(--fonte-corpo);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--preto);
+      background: var(--creme);
+      border: 1px solid var(--creme);
+      padding: 0.75rem 2rem;
+      border-radius: 0;
+      transition: background 0.3s, color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-custom-solid:hover {
+      background: var(--accent-vivo);
+      border-color: var(--accent-vivo);
+      color: var(--preto);
+    }
+
+    /* ============================================================
+       DIVISOR TIPOGRÁFICO
+    ============================================================ */
+    .section-label {
+      font-family: var(--fonte-corpo);
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--fonte-titulo);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--branco-sujo);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .divider-line {
+      width: 48px;
+      height: 1px;
+      background: var(--accent);
+      margin: 1.2rem 0 2.5rem;
+    }
+
+    /* ============================================================
+       SEÇÃO PROJETOS
+    ============================================================ */
+    #projetos {
+      padding: 7rem 0;
+      background-color: var(--carvao);
+      border-top: 1px solid var(--cimento);
+    }
+
+    /* Card de projeto */
+    .projeto-card {
+      background: var(--cimento);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 0;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.4s;
+      position: relative;
+    }
+    .projeto-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+
+    /* Placeholder de imagem com overlay */
+    .projeto-img {
+      height: 280px;
+      position: relative;
+      overflow: hidden;
+    }
+    .projeto-img-1 {
+      background: linear-gradient(135deg, #1e1b17 0%, #2d2720 50%, #181510 100%);
+    }
+    .projeto-img-2 {
+      background: linear-gradient(135deg, #12100e 0%, #1f1c19 50%, #2a2520 100%);
+    }
+    .projeto-img-3 {
+      background: linear-gradient(135deg, #1a1815 0%, #252118 50%, #0e0d0b 100%);
+    }
+
+    /* Grain nas imagens placeholder */
+    .projeto-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+      z-index: 1;
+    }
+
+    /* Ícone central placeholder */
+    .projeto-img-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      color: rgba(210, 200, 185, 0.12);
+      font-family: var(--fonte-titulo);
+      font-size: 4rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Overlay hover */
+    .projeto-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,9,8,0.85) 0%,
+        transparent 55%
+      );
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: 3;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+    .projeto-card:hover .projeto-overlay { opacity: 1; }
+
+    .projeto-overlay-text {
+      font-family: var(--fonte-corpo);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--creme);
+    }
+
+    /* Conteúdo do card */
+    .projeto-body {
+      padding: 1.5rem 1.6rem 1.8rem;
+    }
+
+    .projeto-meta {
+      font-family: var(--fonte-corpo);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cinza-medio);
+      margin-bottom: 0.6rem;
+    }
+
+    .projeto-titulo {
+      font-family: var(--fonte-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--branco-sujo);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .projeto-desc {
+      font-size: 0.85rem;
+      color: var(--cinza-claro);
+      line-height: 1.65;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Badge Bootstrap customizado */
+    .badge-custom {
+      font-family: var(--fonte-corpo);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: transparent !important;
+      border: 1px solid var(--cimento-claro);
+      color: var(--cinza-medio) !important;
+      border-radius: 0;
+      padding: 0.3em 0.7em;
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       SEÇÃO SOBRE MIM
+    ============================================================ */
+    #sobre {
+      padding: 7rem 0;
+      background-color: var(--preto);
+      border-top: 1px solid var(--cimento);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Quadros decorativos de película */
+    #sobre::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--cimento) 0px,
+        var(--cimento) 16px,
+        transparent 16px,
+        transparent 22px
+      );
+      opacity: 0.4;
+    }
+
+    .sobre-img-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, #1e1b18 0%, #2a2520 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .sobre-img-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+    }
+    /* Borda de fotograma */
+    .sobre-img-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .sobre-img-caption {
+      font-family: var(--fonte-corpo);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cimento-claro);
+      margin-top: 0.8rem;
+      text-align: center;
+    }
+
+    .sobre-texto p {
+      color: var(--cinza-claro);
+      font-size: 0.95rem;
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+
+    .sobre-texto p strong {
+      color: var(--creme);
+      font-weight: 500;
+    }
+
+    /* Lista de influências */
+    .influencias-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .influencias-list li {
+      font-family: var(--fonte-corpo);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--cimento-claro);
+      color: var(--cinza-medio);
+      padding: 0.35em 0.8em;
+    }
+
+    /* ============================================================
+       SEÇÃO CONTATO
+    ============================================================ */
+    #contato {
+      padding: 7rem 0;
+      background-color: var(--carvao);
+      border-top: 1px solid var(--cimento);
+      text-align: center;
+    }
+
+    .contato-grande {
+      font-family: var(--fonte-titulo);
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      color: var(--branco-sujo);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .contato-frase {
+      font-family: var(--fonte-serif);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--cinza-claro);
+      margin-bottom: 3rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contato-link {
+      font-family: var(--fonte-corpo);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--creme);
+      text-decoration: none;
+      border-bottom: 1px solid var(--cimento-claro);
+      padding-bottom: 2px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .contato-link:hover {
+      color: var(--accent-vivo);
+      border-color: var(--accent-vivo);
+    }
+
+    .contato-info-bloco {
+      background: var(--cimento);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 2rem 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contato-info-label {
+      font-family: var(--fonte-corpo);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .contato-info-valor {
+      font-family: var(--fonte-serif);
+      font-size: 1rem;
+      color: var(--creme);
+    }
+
+    /* ============================================================
+       RODAPÉ
+    ============================================================ */
+    footer {
+      background: var(--preto);
+      border-top: 1px solid var(--cimento);
+      padding: 2rem 0;
+    }
+
+    .footer-texto {
+      font-family: var(--fonte-corpo);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: var(--cimento-claro);
+      text-align: center;
+    }
+
+    .footer-marca {
+      font-family: var(--fonte-titulo);
+      font-size: 1rem;
+      color: var(--cinza-medio);
+    }
+
+    /* Faixa de película decorativa no rodapé */
+    .footer-film {
+      display: flex;
+      justify-content: center;
+      gap: 3px;
+      margin-bottom: 1.2rem;
+      opacity: 0.3;
+    }
+    .footer-film span {
+      display: block;
+      width: 14px;
+      height: 10px;
+      border: 1px solid var(--cimento-claro);
+    }
+
+    /* ============================================================
+       UTILITÁRIOS EXTRAS
+    ============================================================ */
+    .text-accent { color: var(--accent-vivo); }
+    .border-accent { border-color: var(--accent) !important; }
+
+    /* Linha horizontal temática */
+    hr.custom {
+      border: none;
+      border-top: 1px solid var(--cimento);
+      opacity: 1;
+      margin: 3rem 0;
+    }
+
+    /* Número de ordem dos projetos */
+    .projeto-num {
+      font-family: var(--fonte-corpo);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--cimento-claro);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* ============================================================
+       RESPONSIVIDADE FINA
+    ============================================================ */
+    @media (max-width: 767px) {
+      .hero-frame-num { display: none; }
+      .sobre-img-placeholder { aspect-ratio: 1/1; margin-bottom: 2rem; }
+      .contato-info-bloco { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR BOOTSTRAP
+  ============================================================ -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+      <a class="navbar-brand-custom" href="#hero">Manoela Leão</a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navMenu"
+        aria-controls="navMenu"
+        aria-expanded="false"
+        aria-label="Abrir menu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+        <ul class="navbar-nav gap-1">
+          <li class="nav-item">
+            <a class="nav-link-custom nav-link" href="#projetos">Projetos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link-custom nav-link" href="#sobre">Sobre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link-custom nav-link" href="#contato">Contato</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-filmstrip"></div>
+    <div class="scanline"></div>
+    <span class="hero-frame-num">FRAME 001 / 35MM / 2026</span>
+
+    <div class="container hero-content">
+      <div class="row">
+        <div class="col-lg-9 col-xl-8">
+
+          <p class="hero-eyebrow anim-fade-up delay-1">
+            Cineasta &nbsp;·&nbsp; Fotógrafa &nbsp;·&nbsp; Diretora de Arte
+          </p>
+
+          <h1 class="hero-title anim-fade-up delay-2">
+            Manoela<br/>Leão
+          </h1>
+
+          <p class="hero-subtitle anim-fade-up delay-3">
+            Imagens que habitam a fronteira entre o documental e o sonho —
+            câmera na mão, olho atrás do olho.
+          </p>
+
+          <div class="d-flex flex-wrap gap-3 anim-fade-up delay-4">
+            <a href="#projetos" class="btn-custom-solid">Ver projetos</a>
+            <a href="#contato" class="btn-custom-outline">Entrar em contato</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PROJETOS
+  ============================================================ -->
+  <section id="projetos">
+    <div class="container">
+
+      <!-- Cabeçalho da seção -->
+      <div class="row mb-5">
+        <div class="col-12">
+          <p class="section-label anim-fade-up">Trabalhos</p>
+          <h2 class="section-title anim-fade-up delay-1">Projetos</h2>
+          <div class="divider-line anim-fade-up delay-2"></div>
+        </div>
+      </div>
+
+      <!-- Grade de cards Bootstrap -->
+      <div class="row g-4">
+
+        <!-- Card 1 — Banda de progressivo -->
+        <div class="col-sm-6 col-lg-4 anim-fade-up delay-1">
+          <div class="projeto-card h-100">
+            <div class="projeto-img projeto-img-1">
+              <div class="projeto-img-icon">♩</div>
+              <div class="projeto-overlay">
+                <span class="projeto-overlay-text">Fotografia · 2026</span>
+              </div>
+            </div>
+            <div class="projeto-body">
+              <span class="projeto-num">001</span>
+              <p class="projeto-meta">Fotografia &nbsp;/&nbsp; Maio 2026</p>
+              <h3 class="projeto-titulo">Sessão de Fotos — Banda Progressiva</h3>
+              <p class="projeto-desc">
+                Ensaio fotográfico do baixista da banda durante sessão de fotos
+                promocional. Luz dura, enquadramento instintivo, a tensão elétrica
+                entre o músico e o instrumento.
+              </p>
+              <div class="d-flex gap-2 flex-wrap">
+                <span class="badge badge-custom">Ensaio</span>
+                <span class="badge badge-custom">Música</span>
+                <span class="badge badge-custom">35mm look</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Still de videoclipe -->
+        <div class="col-sm-6 col-lg-4 anim-fade-up delay-2">
+          <div class="projeto-card h-100">
+            <div class="projeto-img projeto-img-2">
+              <div class="projeto-img-icon">◈</div>
+              <div class="projeto-overlay">
+                <span class="projeto-overlay-text">Still · Direção de Arte · 2026</span>
+              </div>
+            </div>
+            <div class="projeto-body">
+              <span class="projeto-num">002</span>
+              <p class="projeto-meta">Still / Dir. de Arte &nbsp;/&nbsp; 2026</p>
+              <h3 class="projeto-titulo">Still — Videoclipe</h3>
+              <p class="projeto-desc">
+                Fotografia still e direção de arte em set de videoclipe. Responsável
+                pela concepção visual da cena, paleta cromática e registro dos
+                bastidores em imagens fixas.
+              </p>
+              <div class="d-flex gap-2 flex-wrap">
+                <span class="badge badge-custom">Still</span>
+                <span class="badge badge-custom">Dir. de Arte</span>
+                <span class="badge badge-custom">Set</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 — Peirópolis -->
+        <div class="col-sm-6 col-lg-4 anim-fade-up delay-3">
+          <div class="projeto-card h-100">
+            <div class="projeto-img projeto-img-3">
+              <div class="projeto-img-icon">⌬</div>
+              <div class="projeto-overlay">
+                <span class="projeto-overlay-text">Experimental · 2025</span>
+              </div>
+            </div>
+            <div class="projeto-body">
+              <span class="projeto-num">003</span>
+              <p class="projeto-meta">Fotografia Experimental &nbsp;/&nbsp; 2025</p>
+              <h3 class="projeto-titulo">Peirópolis</h3>
+              <p class="projeto-desc">
+                Ensaio fotográfico experimental no parque paleontológico de Peirópolis,
+                MG. Tempo geológico e silêncio de ossos — dinosauros como ruínas de
+                um cinema anterior ao cinema.
+              </p>
+              <div class="d-flex gap-2 flex-wrap">
+                <span class="badge badge-custom">Experimental</span>
+                <span class="badge badge-custom">Natureza</span>
+                <span class="badge badge-custom">Ensaio</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /row de cards -->
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SOBRE MIM
+  ============================================================ -->
+  <section id="sobre">
+    <div class="container">
+
+      <div class="row align-items-center g-5">
+
+        <!-- Coluna da imagem -->
+        <div class="col-md-4 col-lg-3 anim-fade-up delay-1">
+          <div class="sobre-img-placeholder"></div>
+          <p class="sobre-img-caption">[ imagem / arquivo pessoal ]</p>
+        </div>
+
+        <!-- Coluna do texto -->
+        <div class="col-md-8 col-lg-9 anim-fade-up delay-2">
+
+          <p class="section-label">Quem sou</p>
+          <h2 class="section-title">Sobre Mim</h2>
+          <div class="divider-line"></div>
+
+          <div class="sobre-texto">
+            <p>
+              Graduanda em <strong>Cinema e Audiovisual na ESPM-SP</strong>, me movo
+              entre a câmera fotográfica e a câmera de cinema como quem habita dois
+              quartos do mesmo corpo. A imagem que me interessa é a que carrega
+              fricção — grain, sombra, o imprevisto no quadro.
+            </p>
+            <p>
+              Minha formação estética bebe diretamente do <strong>Cinema Novo</strong>
+              e da <strong>Boca do Lixo</strong>: o Brasil que grita, o corpo
+              filmado de perto, a rua como set. Arnaldo Jabor e Glauber Rocha
+              me ensinaram que enquadrar é um ato político tanto quanto estético.
+            </p>
+            <p>
+              Atuo também como <strong>Diretora de Arte</strong>, construindo mundos
+              visuais em sets de videoclipe e projetos autorais. A paleta é sempre
+              escura, o tempo é sempre analógico.
+            </p>
+          </div>
+
+          <!-- Influências como badges -->
+          <p class="section-label mt-4 mb-2">Influências</p>
+          <ul class="influencias-list">
+            <li>Cinema Novo</li>
+            <li>Boca do Lixo</li>
+            <li>Cinema Experimental</li>
+            <li>Glauber Rocha</li>
+            <li>Arnaldo Jabor</li>
+            <li>Fotografia Analógica</li>
+            <li>Anos 70</li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTATO
+  ============================================================ -->
+  <section id="contato">
+    <div class="container">
+
+      <p class="section-label anim-fade-up">Fale comigo</p>
+      <h2 class="contato-grande anim-fade-up delay-1">Vamos<br/>trabalhar<br/>juntas?</h2>
+      <p class="contato-frase anim-fade-up delay-2">
+        "Uma imagem não representa a realidade — ela a interpreta."
+      </p>
+
+      <!-- Blocos de contato -->
+      <div class="row justify-content-center g-3 anim-fade-up delay-3">
+
+        <div class="col-md-4 col-sm-6">
+          <div class="contato-info-bloco">
+            <p class="contato-info-label">E-mail</p>
+            <p class="contato-info-valor">
+              <a
+                href="mailto:captura.portrasdosolhos@gmail.com"
+                class="contato-link"
+              >
+                captura.portrasdosolhos<br/>@gmail.com
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+          <div class="contato-info-bloco">
+            <p class="contato-info-label">Instagram</p>
+            <p class="contato-info-valor">
+              <a
+                href="https://instagram.com/captura.portrasdosolhos"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="contato-link"
+              >
+                @captura.portrasdosolhos
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+          <div class="contato-info-bloco">
+            <p class="contato-info-label">Localização</p>
+            <p class="contato-info-valor" style="color: var(--cinza-claro); font-size:0.9rem;">
+              São Paulo, SP — Brasil
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-5 anim-fade-up delay-4">
+        <a href="mailto:captura.portrasdosolhos@gmail.com" class="btn-custom-solid">
+          Enviar mensagem
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       RODAPÉ
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-film">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <p class="footer-marca mb-1">Manoela Leão</p>
+      <p class="footer-texto">
+        © 2026 &nbsp;·&nbsp; Cineasta / Fotógrafa / Diretora de Arte
+        &nbsp;·&nbsp; ESPM-SP &nbsp;·&nbsp; São Paulo
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmB2U5MPsNGjl5ABWMkMGbksIJRk"
+    crossorigin="anonymous"
+  ></script>
+
+</body>
+</html>
